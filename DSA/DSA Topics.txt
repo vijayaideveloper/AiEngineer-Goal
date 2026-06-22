@@ -1,0 +1,21 @@
+Phase 1:
+
+1.Arrays and String
+2.Hash Tables
+3.Linked List
+4.Stacked and Queues
+5.Binary Search
+6.Trees
+
+
+Phase 2:
+
+1.Recursion and BackTracking
+2.Heap/Priority Queue
+3.Graphs
+
+Phase 3:
+
+1.Dynamic Programming
+2.Greedy Algorithms
+3.Tries
