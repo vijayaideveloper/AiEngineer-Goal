@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6 Months to AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(135deg, #0A0A14 0%, #0D0D1F 50%, #0A0A14 100%);
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #E2E8F0;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      padding: 40px 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(108,99,255,0.15);
+      border: 1px solid rgba(108,99,255,0.3);
+      border-radius: 100px;
+      padding: 4px 16px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8B85FF;
+      margin-bottom: 14px;
+    }
+    .header h1 {
+      font-size: clamp(24px, 5vw, 40px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.15;
+    }
+    .header p {
+      color: #94A3B8;
+      font-size: 14px;
+    }
+
+    /* ── Skill Pillars ── */
+    .pillars {
+      display: flex;
+      gap: 8px;
+      padding: 20px 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .pillar {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+      min-width: 90px;
+    }
+    .pillar-icon { font-size: 18px; margin-bottom: 4px; }
+    .pillar-label { font-size: 12px; font-weight: 700; color: #CBD5E1; }
+    .pillar-desc { font-size: 10px; color: #64748B; margin-top: 2px; line-height: 1.3; }
+
+    /* ── Month Selector ── */
+    .month-selector {
+      display: flex;
+      gap: 6px;
+      padding: 0 16px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .month-selector::-webkit-scrollbar { display: none; }
+    .month-btn {
+      flex: 0 0 auto;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: #64748B;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+    .month-btn.active {
+      font-weight: 700;
+    }
+
+    /* ── Month Card ── */
+    .card-area {
+      padding: 0 16px 32px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .month-header {
+      border-radius: 16px;
+      padding: 22px 20px 18px;
+      margin-bottom: 12px;
+    }
+    .month-header-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .month-eyebrow {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .month-title {
+      font-size: clamp(18px, 4vw, 24px);
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #F1F5F9;
+    }
+    .month-goal { font-size: 13px; color: #94A3B8; }
+    .hiring-tag {
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tab-btn {
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      color: #64748B;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: capitalize;
+      transition: all 0.18s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Week Block ── */
+    .week-block {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+    .week-header {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .week-num {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .week-label-top {
+      font-size: 10px;
+      color: #64748B;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .week-label-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+    .task-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 7px;
+    }
+    .task-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .task-text {
+      font-size: 13px;
+      color: #CBD5E1;
+      line-height: 1.5;
+    }
+
+    /* ── Project Card ── */
+    .project-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .project-icon {
+      font-size: 22px;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .project-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 3px;
+    }
+    .project-sub { font-size: 11px; color: #64748B; }
+    .project-tip {
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 12px;
+      color: #94A3B8;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* ── Resource Card ── */
+    .resource-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .resource-text { font-size: 13px; color: #CBD5E1; }
+    .always-active {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+    }
+    .always-label {
+      font-size: 12px;
+      color: #64748B;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .always-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .always-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #64748B;
+      flex-shrink: 0;
+    }
+    .always-text { font-size: 12px; color: #94A3B8; }
+
+    /* ── Progress Bar ── */
+    .progress-wrap {
+      margin-top: 20px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .progress-label {
+      font-size: 11px;
+      color: #64748B;
+      font-weight: 600;
+    }
+    .progress-pct {
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .progress-track {
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 0.4s ease;
+    }
+    .progress-ends {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .progress-end-label { font-size: 10px; color: #334155; }
+
+    /* ── Footer / CTA ── */
+    .footer-cta {
+      text-align: center;
+      padding: 20px 20px 40px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .footer-cta p { font-size: 13px; color: #64748B; margin-bottom: 6px; }
+    .company-tags {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .company-tag {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: #94A3B8;
+    }
+
+    /* ── Hidden tab content ── */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="badge">AI Engineer Roadmap 2025</div>
+  <h1>6 Months to AI Engineer</h1>
+  <p>Internship-ready → Hire-ready · Built for India's AI market</p>
+</div>
+
+<!-- Skill Pillars -->
+<div class="pillars" id="pillars"></div>
+
+<!-- Month Selector -->
+<div class="month-selector" id="monthSelector"></div>
+
+<!-- Month Card -->
+<div class="card-area">
+  <div class="month-header" id="monthHeader">
+    <div class="month-header-inner">
+      <div>
+        <div class="month-eyebrow" id="monthEyebrow"></div>
+        <div class="month-title" id="monthTitle"></div>
+        <div class="month-goal" id="monthGoal"></div>
+      </div>
+      <div class="hiring-tag" id="hiringTag"></div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs" id="tabs">
+    <button class="tab-btn" data-tab="weeks" onclick="setTab('weeks')">📅 Curriculum</button>
+    <button class="tab-btn" data-tab="projects" onclick="setTab('projects')">🛠 Projects</button>
+    <button class="tab-btn" data-tab="resources" onclick="setTab('resources')">📚 Resources</button>
+  </div>
+
+  <!-- Tab Panels -->
+  <div class="tab-content active" id="tab-weeks"></div>
+  <div class="tab-content" id="tab-projects"></div>
+  <div class="tab-content" id="tab-resources"></div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-row">
+      <span class="progress-label">OVERALL PROGRESS</span>
+      <span class="progress-pct" id="progressPct"></span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-ends">
+      <span class="progress-end-label">Start</span>
+      <span class="progress-end-label">Hire-Ready</span>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer-cta">
+  <p>Target companies after 6 months</p>
+  <div class="company-tags">
+    <span class="company-tag">Amazon</span>
+    <span class="company-tag">TCS</span>
+    <span class="company-tag">Infosys</span>
+    <span class="company-tag">AI Startups</span>
+    <span class="company-tag">HuggingFace</span>
+    <span class="company-tag">Zoho</span>
+  </div>
+</div>
+
+<script>
+const roadmapData = [
+  {
+    month: 1,
+    title: "Python Mastery + Math Foundation",
+    theme: "Build the base",
+    color: "#6C63FF",
+    accent: "#8B85FF",
+    goal: "Internship-ready Python + core ML math",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "Python Deep Dive",
+        tasks: [
+          "Python standard library: os, sys, pathlib, json, csv, datetime",
+          "OOP: classes, inheritance, dunder methods",
+          "Decorators, generators, context managers",
+          "File I/O, error handling, logging",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "Math for ML",
+        tasks: [
+          "Linear Algebra: vectors, matrices, dot product, eigenvectors",
+          "Calculus: derivatives, chain rule, gradient concept",
+          "Probability & Stats: Bayes, distributions, variance",
+          "NumPy implementation of each concept",
+        ],
+      },
+    ],
+    projects: ["Matrix operations visualizer", "Statistics calculator CLI"],
+    hiringTag: "Python Intern",
+    resources: ["MIT 18.06 Linear Algebra", "3Blue1Brown Essence of Calculus"],
+  },
+  {
+    month: 2,
+    title: "Data Engineering + SQL",
+    theme: "Handle real data",
+    color: "#F97316",
+    accent: "#FB923C",
+    goal: "Data pipeline + SQL skills for data roles",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "Pandas & Data Wrangling",
+        tasks: [
+          "Pandas: groupby, merge, pivot, melt, apply",
+          "Data cleaning: nulls, outliers, encoding",
+          "EDA: distribution plots, correlation heatmaps",
+          "Feature engineering techniques",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "SQL + Databases",
+        tasks: [
+          "SQL: joins, subqueries, window functions, CTEs",
+          "PostgreSQL / MySQL setup and practice",
+          "50 LeetCode SQL problems (Easy → Medium)",
+          "Connect Python (SQLAlchemy) to database",
+        ],
+      },
+    ],
+    projects: ["EDA report on Kaggle dataset", "SQL analytics dashboard"],
+    hiringTag: "Data Analyst / ML Intern",
+    resources: ["Mode SQL Tutorial", "Kaggle Pandas course"],
+  },
+  {
+    month: 3,
+    title: "Machine Learning Core",
+    theme: "Build, train, evaluate",
+    color: "#10B981",
+    accent: "#34D399",
+    goal: "End-to-end ML pipelines + deployed models",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "Supervised Learning",
+        tasks: [
+          "Linear/Logistic Regression from scratch",
+          "Decision Trees, Random Forest, XGBoost",
+          "Scikit-learn pipelines, cross-validation",
+          "Hyperparameter tuning: GridSearch, Optuna",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "Model Deployment",
+        tasks: [
+          "Flask / FastAPI REST endpoints",
+          "Docker: containerize your model",
+          "Deploy to Render / Railway / HuggingFace Spaces",
+          "Build a prediction API with live demo URL",
+        ],
+      },
+    ],
+    projects: ["Salary Predictor API (deployed)", "Multi-model comparison dashboard"],
+    hiringTag: "ML Engineer Intern",
+    resources: ["Hands-On ML (Geron)", "FastAPI docs"],
+  },
+  {
+    month: 4,
+    title: "Deep Learning + NLP",
+    theme: "Neural networks + language",
+    color: "#3B82F6",
+    accent: "#60A5FA",
+    goal: "Build DL models + understand transformers",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "Deep Learning Foundations",
+        tasks: [
+          "PyTorch: tensors, autograd, nn.Module",
+          "CNNs: image classification (MNIST → CIFAR)",
+          "Training loop, optimizer, loss functions",
+          "Batch norm, dropout, regularization",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "NLP + Transformers",
+        tasks: [
+          "Text preprocessing: tokenization, embeddings",
+          "HuggingFace Transformers: BERT, GPT-2 fine-tuning",
+          "Sentiment analysis, text classification projects",
+          "Understand attention mechanism conceptually",
+        ],
+      },
+    ],
+    projects: ["Fine-tuned sentiment model on HuggingFace Hub", "Image + text multimodal demo"],
+    hiringTag: "AI/NLP Engineer Intern",
+    resources: ["fast.ai", "HuggingFace NLP course"],
+  },
+  {
+    month: 5,
+    title: "LLMs + AI Agents",
+    theme: "The real AI engineering",
+    color: "#A855F7",
+    accent: "#C084FC",
+    goal: "Build LLM apps + autonomous agents",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "LLM Engineering",
+        tasks: [
+          "Prompt engineering: zero-shot, few-shot, chain-of-thought",
+          "OpenAI / Anthropic API: function calling, tool use",
+          "LangChain basics: chains, memory, retrievers",
+          "RAG (Retrieval-Augmented Generation) pipeline",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "AI Agents",
+        tasks: [
+          "Agent architectures: ReAct, Plan-and-Execute",
+          "Tool-use agents with LangChain / LlamaIndex",
+          "Vector DBs: ChromaDB, Pinecone, Weaviate",
+          "Build a document Q&A agent with memory",
+        ],
+      },
+    ],
+    projects: ["Personal RAG chatbot on your own docs", "Auto-research agent that browses + summarizes"],
+    hiringTag: "LLM / Generative AI Engineer",
+    resources: ["LangChain docs", "DeepLearning.AI LLM short courses"],
+  },
+  {
+    month: 6,
+    title: "Portfolio + Hiring Sprint",
+    theme: "Get the offer",
+    color: "#EF4444",
+    accent: "#F87171",
+    goal: "Internship applications + interview domination",
+    weeks: [
+      {
+        week: "Week 1–2",
+        label: "Polish Portfolio",
+        tasks: [
+          "5 deployed projects: each with GitHub + live demo",
+          "Write detailed README for every project",
+          "Update portfolio site with AI/LLM work",
+          "Record 1-min demo videos for LinkedIn",
+        ],
+      },
+      {
+        week: "Week 3–4",
+        label: "Apply + Interview Prep",
+        tasks: [
+          "Apply: Amazon, TCS iON, Infosys Springboard, AI startups via LinkedIn",
+          "DSA: solve 100 LeetCode (Easy + Medium) — Arrays, Trees, DP",
+          "ML system design: practice explaining pipelines",
+          "Mock interviews: Pramp, Interviewing.io",
+        ],
+      },
+    ],
+    projects: ["Capstone: end-to-end LLM app (idea → deploy → demo)", "Open source contribution (1 PR merged)"],
+    hiringTag: "HIRED 🎯",
+    resources: ["NeetCode.io", "ML System Design (Educative)"],
+  },
+];
+
+const skillPillars = [
+  { icon: "🧠", label: "ML/DL", desc: "Scikit-learn, PyTorch, HuggingFace" },
+  { icon: "🔗", label: "LLMs", desc: "LangChain, RAG, Agents, APIs" },
+  { icon: "🗄️", label: "Data", desc: "Pandas, SQL, EDA, Pipelines" },
+  { icon: "🚀", label: "Deploy", desc: "FastAPI, Docker, Cloud, CI/CD" },
+  { icon: "💻", label: "DSA", desc: "100+ LeetCode, System Design" },
+  { icon: "🎯", label: "Portfolio", desc: "5+ Projects, GitHub, LinkedIn" },
+];
+
+const projectIcons = ["🔧", "📊", "🚀", "🤖", "💡", "🏆"];
+const alwaysActive = [
+  "Kaggle (practice + certificates)",
+  "LeetCode (DSA daily)",
+  "Papers With Code (stay current)",
+  "LinkedIn (apply + post weekly)",
+];
+
+let activeMonth = 1;
+let activeTab = "weeks";
+
+// Render pillars
+const pillarsEl = document.getElementById("pillars");
+skillPillars.forEach(p => {
+  pillarsEl.innerHTML += `
+    <div class="pillar">
+      <div class="pillar-icon">${p.icon}</div>
+      <div class="pillar-label">${p.label}</div>
+      <div class="pillar-desc">${p.desc}</div>
+    </div>`;
+});
+
+// Render month selector buttons
+const selectorEl = document.getElementById("monthSelector");
+roadmapData.forEach(m => {
+  const btn = document.createElement("button");
+  btn.className = "month-btn";
+  btn.id = `mbtn-${m.month}`;
+  btn.textContent = `M${m.month} · ${m.title.split(" ")[0]}`;
+  btn.onclick = () => { activeMonth = m.month; activeTab = "weeks"; render(); };
+  selectorEl.appendChild(btn);
+});
+
+function hex(color, alpha) {
+  // Returns rgba from hex + 0-255 alpha string like "22" (hex)
+  const a = parseInt(alpha, 16);
+  const r = parseInt(color.slice(1,3), 16);
+  const g = parseInt(color.slice(3,5), 16);
+  const b = parseInt(color.slice(5,7), 16);
+  return `rgba(${r},${g},${b},${(a/255).toFixed(2)})`;
+}
+
+function setTab(tab) {
+  activeTab = tab;
+  render();
+}
+
+function render() {
+  const current = roadmapData[activeMonth - 1];
+  const c = current.color;
+  const acc = current.accent;
+
+  // Month selector button states
+  roadmapData.forEach(m => {
+    const btn = document.getElementById(`mbtn-${m.month}`);
+    if (m.month === activeMonth) {
+      btn.style.border = `1.5px solid ${m.color}`;
+      btn.style.background = hex(m.color, "22");
+      btn.style.color = m.color;
+      btn.classList.add("active");
+    } else {
+      btn.style.border = "1.5px solid rgba(255,255,255,0.08)";
+      btn.style.background = "rgba(255,255,255,0.03)";
+      btn.style.color = "#64748B";
+      btn.classList.remove("active");
+    }
+  });
+
+  // Month header
+  document.getElementById("monthHeader").style.cssText = `
+    border-radius:16px;
+    border:1px solid ${c}44;
+    background:linear-gradient(135deg,${c}18 0%,rgba(255,255,255,0.02) 100%);
+    padding:22px 20px 18px;
+    margin-bottom:12px;
+  `;
+  document.getElementById("monthEyebrow").textContent = `Month ${current.month} · ${current.theme}`;
+  document.getElementById("monthEyebrow").style.color = c;
+  document.getElementById("monthTitle").textContent = current.title;
+  document.getElementById("monthGoal").textContent = `🎯 ${current.goal}`;
+  const ht = document.getElementById("hiringTag");
+  ht.textContent = current.hiringTag;
+  ht.style.cssText = `background:${c}22;border:1px solid ${c}55;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;white-space:nowrap;align-self:flex-start;color:${c};`;
+
+  // Tab buttons
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    const t = btn.dataset.tab;
+    if (t === activeTab) {
+      btn.style.border = `1px solid ${c}88`;
+      btn.style.background = `${c}22`;
+      btn.style.color = c;
+    } else {
+      btn.style.border = "1px solid rgba(255,255,255,0.07)";
+      btn.style.background = "rgba(255,255,255,0.03)";
+      btn.style.color = "#64748B";
+    }
+  });
+
+  // Tab panels
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+  document.getElementById(`tab-${activeTab}`).classList.add("active");
+
+  // --- Weeks ---
+  const weeksEl = document.getElementById("tab-weeks");
+  weeksEl.innerHTML = current.weeks.map((w, i) => `
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-num" style="background:${c}33;color:${c};">${i + 1}</div>
+        <div>
+          <div class="week-label-top">${w.week}</div>
+          <div class="week-label-name">${w.label}</div>
+        </div>
+      </div>
+      ${w.tasks.map(task => `
+        <div class="task-row">
+          <div class="task-dot" style="background:${c};"></div>
+          <span class="task-text">${task}</span>
+        </div>`).join("")}
+    </div>`).join("");
+
+  // --- Projects ---
+  const projEl = document.getElementById("tab-projects");
+  projEl.innerHTML = current.projects.map((p, i) => `
+    <div class="project-card" style="border:1px solid ${c}33;">
+      <div class="project-icon" style="background:${c}22;">${projectIcons[i] || "🛠"}</div>
+      <div>
+        <div class="project-name">${p}</div>
+        <div class="project-sub">Add to GitHub + portfolio</div>
+      </div>
+    </div>`).join("") + `
+    <div class="project-tip" style="background:${c}11;border:1px dashed ${c}44;">
+      💡 Every project must have: <strong style="color:${c};">Live Demo URL · README · GitHub Stars</strong> — recruiters check these before calling you.
+    </div>`;
+
+  // --- Resources ---
+  const resEl = document.getElementById("tab-resources");
+  resEl.innerHTML = current.resources.map(r => `
+    <div class="resource-card">
+      <span style="font-size:18px;">📖</span>
+      <span class="resource-text">${r}</span>
+    </div>`).join("") + `
+    <div class="always-active">
+      <div class="always-label">ALWAYS ACTIVE</div>
+      ${alwaysActive.map(r => `
+        <div class="always-row">
+          <div class="always-dot"></div>
+          <span class="always-text">${r}</span>
+        </div>`).join("")}
+    </div>`;
+
+  // Progress bar
+  const pct = Math.round((current.month / 6) * 100);
+  document.getElementById("progressPct").textContent = `${pct}% of Roadmap`;
+  document.getElementById("progressPct").style.color = c;
+  document.getElementById("progressFill").style.cssText = `
+    height:100%;
+    width:${pct}%;
+    background:linear-gradient(90deg,${c},${acc});
+    border-radius:100px;
+    transition:width 0.4s ease;
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
