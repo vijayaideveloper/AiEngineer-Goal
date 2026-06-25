@@ -1,6 +1,6 @@
 {
     "day1":{
-        "title": "list, tuple, dictionary, set,decorator, collections, itertools",
+        "title": "list, tuple, dictionary, set,decorator, collections, itertools,generator",
         "dsa":"1929 array concatenation"
     }
 }
